@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i18n baseKey="m.gmaps.bo.doceditor" lcid="fr_FR">
+	<key id="locate-address">localiser l'adresse</key>
+	<key id="capture-map">rafraichir depuis la carte</key>
+	<key id="search-on-map">rechercher sur la carte</key>
+	<key id="search-address-on-map">rechercher l'adresse sur la carte</key>
+	<key id="refresh-map">rafraichir la carte</key>
+	<key id="map">carte</key>
+	<key id="latitude">latitude</key>
+	<key id="longitude">longitude</key>
+	<key id="locate-address">localiser l'adresse</key>
+	<key id="pick-on-map">rechercher sur une carte</key>
+	<key id="use-these-coordinates">utiliser ces coordonnées</key>
+	<key id="cancel">annuler</key>
+	<key id="address">addresse</key>
+	<key id="pick-coordinates-on-map">recherche de coordonnées sur une carte</key>
+	<key id="pick-on-large-map">rechercher sur une grande carte</key>
+</i18n>

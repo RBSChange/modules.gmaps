@@ -1,0 +1,598 @@
+<?xml version="1.0"?>
+<bindings xmlns="http://www.mozilla.org/xbl" xmlns:xbl="http://www.mozilla.org/xbl" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	
+	<binding id="cLocatableAddressLongtextField" extends="form.cField#cLongTextField">
+		<content>
+			<children />
+			<xul:vbox>
+				<xul:hbox xbl:inherits="context,spellcheck" flex="1">
+					<xul:textbox anonid="internalcontrol" multiline="true" cols="50" rows="5" xbl:inherits="maxlength,disabled,tabindex,accesskey,cols,rows" />
+					<xul:toolbar>
+						<xul:toolbarbutton image="chrome://global/skin/icons/question-16.png" xbl:inherits="hidden=hidehelp"
+							oncommand="dispatchFieldEvent('fieldHelp');" />
+					</xul:toolbar>
+				</xul:hbox>
+				<xul:hbox>
+					<xul:button label="${transui:m.gmaps.bo.doceditor.locate-address,ucf,attr}" oncommand="locateAddress()" image="{IconsBase}/small/refresh.png" />
+					<xul:spacer flex="1" />
+				</xul:hbox>
+			</xul:vbox>
+		</content>
+		<implementation>
+			<method name="locateAddress">
+				<body><![CDATA[
+					this.dispatchFieldEvent('locateAddress');
+				]]></body>
+			</method>
+		</implementation>
+	</binding>
+	
+	<binding id="cLocatableAddressRichtextField" extends="form.cField#cRichTextField">
+		<content>
+			<xul:vbox>
+				<children/>
+				<xul:hbox xbl:inherits="context,spellcheck" flex="1">
+					<xul:vbox style="border:1px solid #a5acb2">
+						<xul:stack anonid="toolbar-stack" flex="1">
+							<xul:vbox flex="1" style="opacity:0.99">
+								<xul:crichtextfieldtoolbar flex="1" xbl:inherits="compact" anonid="editorToolbox" />
+								<xul:crichtext anonid="richtext" style="overflow: auto;" height="150" width="500" 
+									blankUrlParams="specificstylesheet=modules.uixul.cRichtextField"
+									xbl:inherits="spellcheck,tabindex,accesskey,width=editwidth,height=editheight,blankUrlParams"/>
+							</xul:vbox>
+							<xul:vbox anonid="disable-box" hidden="true" flex="1" style="opacity:0.25;background-color:black" />
+						</xul:stack>
+						<xul:hbox style="border-top:1px solid #a5acb2">
+							<xul:button label="${transui:m.gmaps.bo.doceditor.locate-address,ucf,attr}" oncommand="locateAddress()" image="{IconsBase}/small/refresh.png" />
+							<xul:spacer flex="1" />
+						</xul:hbox>
+					</xul:vbox>
+					<xul:toolbar>
+						<xul:toolbarbutton anonid="helpbutton" image="chrome://global/skin/icons/question-16.png"
+							tooltiptext="${transui:m.uixul.bo.doceditor.show-help,ucf,attr}" xbl:inherits="hidden=hidehelp"
+							oncommand="dispatchFieldEvent('fieldHelp');"/>
+					</xul:toolbar>
+				</xul:hbox>
+			</xul:vbox>
+		</content>
+		<implementation>
+			<method name="locateAddress">
+				<body><![CDATA[
+					this.dispatchFieldEvent('locateAddress');
+				]]></body>
+			</method>
+		</implementation>
+	</binding>
+	
+	<binding id="cLocatableAddressField" extends="form.cField#cRichTextField">
+		<content>
+			<children/>
+			<xul:hbox xbl:inherits="context,spellcheck" flex="1">
+				<xul:vbox style="border:1px solid #a5acb2">
+					<xul:stack anonid="toolbar-stack" flex="1">
+						<xul:vbox flex="1" style="opacity:0.99">
+							<xul:crichtextfieldtoolbar flex="1" xbl:inherits="compact" anonid="editorToolbox" />
+							<xul:crichtext anonid="richtext" style="overflow: auto;" height="150" width="500" 
+											blankUrlParams="specificstylesheet=modules.uixul.cRichtextField"
+											xbl:inherits="spellcheck,tabindex,accesskey,width=editwidth,height=editheight,blankUrlParams"/>
+						</xul:vbox>
+						<xul:vbox anonid="disable-box" hidden="true" flex="1" style="opacity:0.25;background-color:black" />
+					</xul:stack>
+					<xul:hbox style="border-top:1px solid #a5acb2">
+						<xul:button label="${transui:m.gmaps.bo.doceditor.locate-address,ucf,attr}" oncommand="locateAddress()" image="{IconsBase}/small/refresh.png" />
+						<xul:spacer flex="1" />
+					</xul:hbox>
+				</xul:vbox>
+				<xul:toolbar>
+					<xul:toolbarbutton anonid="helpbutton" image="chrome://global/skin/icons/question-16.png"
+						tooltiptext="${transui:m.uixul.bo.doceditor.show-help,ucf,attr}" xbl:inherits="hidden=hidehelp"
+						oncommand="dispatchFieldEvent('fieldHelp');"/>
+				</xul:toolbar>
+			</xul:hbox>
+		</content>
+		<implementation>
+			<method name="locateAddress">
+				<body><![CDATA[
+					this.dispatchFieldEvent('locateAddress');
+				]]></body>
+			</method>
+		</implementation>
+	</binding>
+	
+	<binding id="cGmapsCoordinatesField" extends="form.cField#cAbstractField">
+		<content>
+			<children />
+			<xul:hbox xbl:inherits="context,spellcheck" flex="1">
+				<xul:vbox style="border:1px solid #a5acb2">
+					<xul:hbox xbl:inherits="context,spellcheck" flex="1">
+						<xul:iframe anonid="googleiframe" xbl:inherits="src=googleiframesrc" scrolling="no" width="500" height="150" />
+						<xul:spacer flex="1" />
+					</xul:hbox>
+					<xul:hbox style="border-top:1px solid #a5acb2" align="center">
+						<xul:button label="${transui:m.gmaps.bo.doceditor.search-on-map,ucf,attr}" oncommand="searchOnMap()"
+							image="{IconsBase}/small/arrow-up-blue.png" />
+						<xul:spacer flex="1" style="min-width: 5px;" />
+						<xul:toolbarbutton tooltiptext="${transui:m.gmaps.bo.doceditor.pick-on-large-map,ucf,attr}"
+							image="{IconsBase}/small/googlemaps.png" oncommand="openDialog();" />
+						<xul:spacer flex="1" style="min-width: 5px;" />
+						<xul:button label="${transui:m.gmaps.bo.doceditor.capture-map,ucf,attr}" oncommand="captureMap()"
+							image="{IconsBase}/small/arrow-down-blue.png" />
+					</xul:hbox>
+					<xul:hbox style="border-top:1px solid #a5acb2" align="center">
+						<xul:label>${transui:m.gmaps.bo.doceditor.latitude,ucf,lab}</xul:label>
+						<xul:textbox anonid="latitude" type="number" decimalplaces="infinity" min="-90" style="width: 150px" onchange="valueChanged()" />
+						<xul:spacer flex="1" style="min-width: 5px;" />
+						<xul:label>${transui:m.gmaps.bo.doceditor.longitude,ucf,lab}</xul:label>
+						<xul:textbox anonid="longitude" type="number" decimalplaces="infinity" min="-90" style="width: 150px" onchange="valueChanged()" />
+					</xul:hbox>
+				</xul:vbox>
+				<xul:toolbar>
+					<xul:toolbarbutton anonid="helpbutton" image="chrome://global/skin/icons/question-16.png"
+						tooltiptext="${transui:m.uixul.bo.doceditor.show-help,ucf,attr}" xbl:inherits="hidden=hidehelp"
+						oncommand="dispatchFieldEvent('fieldHelp');"/>
+				</xul:toolbar>
+			</xul:hbox>
+		</content>
+		<implementation>
+			<field name="mAddress" />
+			<field name="zoom">8</field>
+			
+			<property name="value">
+				<getter><![CDATA[
+					return JSON.stringify({ latitude: this.latitude, longitude: this.longitude });
+				]]></getter>
+				<setter><![CDATA[
+					var fval = this.fixString(val);
+					this.updateValueWithString(fval);
+				]]></setter>
+			</property>
+			
+			<property name="latitude">
+				<getter><![CDATA[
+					var value = this.getElementByAnonId('latitude').value;
+					return value ? parseFloat(value, 10) : null;
+				]]></getter>
+				<setter><![CDATA[
+					var node = this.getElementByAnonId('latitude');
+					if (node.value != val)
+					{
+						node.value = val;
+						this.valueChanged();
+					}
+				]]></setter>
+			</property>
+			
+			<property name="longitude">
+				<getter><![CDATA[
+					var value = this.getElementByAnonId('longitude').value;
+					return value ? parseFloat(value, 10) : null;
+				]]></getter>
+				<setter><![CDATA[
+					var node = this.getElementByAnonId('longitude');
+					if (node.value != val)
+					{
+						node.value = val;
+						this.valueChanged();
+					}
+				]]></setter>
+			</property>
+			
+			<constructor><![CDATA[
+				//wCore.debug('cGmapsCoordinatesField.constructor');
+				this.setInitialValue(this.initialvalue);
+			]]></constructor>
+			
+			<method name="updateValueWithString">
+				<parameter name="value" />
+				<body><![CDATA[
+					try
+					{
+						var coordinates = JSON.parse(value);
+						this.latitude = coordinates.latitude;
+						this.longitude = coordinates.longitude;
+					}
+					catch (e)
+					{
+						// Nothing to do.
+					}
+					this.updateIframe();
+				]]></body>
+			</method>
+
+			<method name="setInitialValue">
+				<parameter name="val" />
+				<body><![CDATA[
+					var fval = this.fixString(val);
+					this.updateValueWithString(fval);
+					this.setAttribute('initialvalue', fval);
+					if (this.modified)
+					{
+						this.removeAttribute('modified');
+						this.dispatchFieldEvent('fieldRestored');
+					}
+					var errorMessage = this.checkRequired(fval);
+					this.setValidity(errorMessage);
+				]]></body>
+			</method>
+			
+			<method name="valueChanged">
+				<body><![CDATA[
+					this.dispatchFieldEvent('fieldChanged');
+					if (this.initialvalue != this.value)
+					{
+						if (!this.modified)
+						{
+							this.setAttribute('modified', "true");
+							this.dispatchFieldEvent('fieldModified');
+						}
+					}
+					else
+					{
+						if (this.modified)
+						{
+							this.removeAttribute('modified');
+							this.dispatchFieldEvent('fieldRestored');
+						}
+					}
+				]]></body>
+			</method>
+			
+			<method name="reset">
+				<body><![CDATA[
+					this.setInitialValue(this.initialvalue);
+				]]></body>
+			</method>
+
+			<method name="setAddress">
+				<parameter name="val" />
+				<body><![CDATA[
+					this.mAddress = val;
+					this.updateIframe();
+					this.valueChanged();
+				]]></body>
+			</method>
+
+			<method name="searchOnMap">
+				<body><![CDATA[
+					this.mAddress = null;
+					this.updateIframe();
+					this.valueChanged();
+				]]></body>
+			</method>
+			
+			<method name="captureMap">
+				<body><![CDATA[
+					var iframe = new XPCNativeWrapper(this.getElementByAnonId('googleiframe').contentWindow);
+					this.latitude = iframe.document.getElementById('latitude').value;
+					this.longitude = iframe.document.getElementById('longitude').value;
+					this.valueChanged();
+				]]></body>
+			</method>
+
+			<method name="updateIframe">
+				<body><![CDATA[
+					var url = Context.CONTROLLER + '?module=gmaps&action=GetCoordinatesIframe';
+					url += '&latitude='+this.latitude+'&longitude='+this.longitude;
+					if (this.mAddress)
+					{
+						url += '&address='+encodeURIComponent(this.mAddress);
+					}
+					else
+					{
+						url += '&latitude='+this.latitude+'&longitude='+this.longitude;
+					}
+					url += '&zoom=' + (this.zoom ? this.zoom : 8);
+					this.setAttribute("googleiframesrc", url);
+				]]></body>
+			</method>
+			
+			<method name="openDialog">
+				<body><![CDATA[
+					getController().openModalDialog(this, "gmaps_PickOnMap", { latitude: this.latitude, longitude: this.longitude });
+				]]></body>
+			</method>
+		</implementation>
+	</binding>
+	
+	<binding id="cGmapsCompactCoordinatesField" extends="form.cField#cAbstractField">
+		<content>
+			<children />
+			<xul:hbox xbl:inherits="context,spellcheck" flex="1">
+				<xul:vbox flex="1">
+					<xul:hbox align="center">
+						<xul:label>${transui:m.gmaps.bo.doceditor.latitude,ucf,lab}</xul:label>
+						<xul:spacer flex="1" style="min-width: 5px;"/>
+						<xul:textbox anonid="latitude" type="number" decimalplaces="infinity" min="-90" style="width: 150px" onchange="valueChanged()" />
+					</xul:hbox>
+					<xul:hbox align="center">
+						<xul:label>${transui:m.gmaps.bo.doceditor.longitude,ucf,lab}</xul:label>
+						<xul:spacer flex="1" style="min-width: 5px;"/>
+						<xul:textbox anonid="longitude" type="number" decimalplaces="infinity" min="-90" style="width: 150px" onchange="valueChanged()" />
+					</xul:hbox>
+				</xul:vbox>
+				<xul:spacer style="width: 5px;"/>
+				<xul:toolbar align="top">
+					<xul:toolbarbutton tooltiptext="${transui:m.gmaps.bo.doceditor.pick-on-map,ucf,attr}"
+						image="{IconsBase}/small/googlemaps.png" oncommand="searchOnMap();" />
+					<xul:toolbarbutton anonid="helpbutton" image="chrome://global/skin/icons/question-16.png"
+						tooltiptext="${transui:m.uixul.bo.doceditor.show-help,ucf,attr}" xbl:inherits="hidden=hidehelp"
+						oncommand="dispatchFieldEvent('fieldHelp');" />
+				</xul:toolbar>
+			</xul:hbox>
+		</content>
+		<implementation>			
+			<property name="value">
+				<getter><![CDATA[
+					return JSON.stringify({ latitude: this.latitude, longitude: this.longitude });
+				]]></getter>
+				<setter><![CDATA[
+					var fval = this.fixString(val);
+					this.updateValueWithString(fval);
+				]]></setter>
+			</property>
+			
+			<property name="latitude">
+				<getter><![CDATA[
+					var value = this.getElementByAnonId('latitude').value;
+					return value ? parseFloat(value, 10) : null;
+				]]></getter>
+				<setter><![CDATA[
+					var node = this.getElementByAnonId('latitude');
+					if (node.value != val)
+					{
+						node.value = val;
+						this.valueChanged();
+					}
+				]]></setter>
+			</property>
+			
+			<property name="longitude">
+				<getter><![CDATA[
+					var value = this.getElementByAnonId('longitude').value;
+					return value ? parseFloat(value, 10) : null;
+				]]></getter>
+				<setter><![CDATA[
+					var node = this.getElementByAnonId('longitude');
+					if (node.value != val)
+					{
+						node.value = val;
+						this.valueChanged();
+					}
+				]]></setter>
+			</property>
+			
+			<constructor><![CDATA[
+				//wCore.debug('cGmapsCompactCoordinatesField.constructor');
+				this.setInitialValue(this.initialvalue);
+			]]></constructor>
+			
+			<method name="updateValueWithString">
+				<parameter name="value" />
+				<body><![CDATA[
+					wCore.debug('updateValueWithString: '+value);
+					try
+					{
+						var coordinates = JSON.parse(value);
+						wCore.debug('updateValueWithString: latitude = '+coordinates.latitude+', longitude = '+coordinates.longitude);
+						this.latitude = coordinates.latitude;
+						this.longitude = coordinates.longitude;
+					}
+					catch (e)
+					{
+						wCore.error("updateValueWithString", [value], e);
+					}
+				]]></body>
+			</method>
+
+			<method name="setInitialValue">
+				<parameter name="val" />
+				<body><![CDATA[
+					var fval = this.fixString(val);
+					this.updateValueWithString(fval);
+					this.setAttribute('initialvalue', fval);
+					if (this.modified)
+					{
+						this.removeAttribute('modified');
+						this.dispatchFieldEvent('fieldRestored');
+					}
+					var errorMessage = this.checkRequired(fval);
+					this.setValidity(errorMessage);
+				]]></body>
+			</method>
+			
+			<method name="valueChanged">
+				<body><![CDATA[
+					this.dispatchFieldEvent('fieldChanged');
+					if (this.initialvalue != this.value)
+					{
+						if (!this.modified)
+						{
+							this.setAttribute('modified', "true");
+							this.dispatchFieldEvent('fieldModified');
+						}
+					}
+					else
+					{
+						if (this.modified)
+						{
+							this.removeAttribute('modified');
+							this.dispatchFieldEvent('fieldRestored');
+						}
+					}
+				]]></body>
+			</method>
+			
+			<method name="reset">
+				<body><![CDATA[
+					this.setInitialValue(this.initialvalue);
+				]]></body>
+			</method>
+
+			<method name="searchOnMap">
+				<body><![CDATA[
+					getController().openModalDialog(this, "gmaps_PickOnMap", { latitude: this.latitude, longitude: this.longitude });
+				]]></body>
+			</method>
+		</implementation>
+	</binding>
+	
+	<binding id="cPickOnMapDialog" extends="core.wDialog#wDialog">
+		<content>
+			<xul:vbox flex="1">
+				<xul:hbox class="dialog-header">
+					<xul:label value="${transui:modules.gmaps.bo.doceditor.pick-coordinates-on-map,ucf,attr}" class="dialog-title" />
+					<xul:spacer flex="1" />
+					<xul:vbox pack="center">
+						<xul:toolbarbutton image="{IconsBase}/small/delete.png" oncommand="onCancel();" 
+							tooltiptexts="${transui:m.uixul.bo.dialog.cancel,ucf,attr}" />
+					</xul:vbox>
+				</xul:hbox>
+				<xul:spacer style="height: 4px;" />
+				<xul:vbox flex="1">
+					<xul:iframe anonid="googleiframe" xbl:inherits="src=googleiframesrc" scrolling="no" flex="1" />
+				</xul:vbox>
+				<xul:spacer style="height: 4px;" />
+				<xul:hbox>
+					<xul:vbox flex="1">
+						<xul:hbox align="center">
+							<xul:button label="${transui:m.gmaps.bo.doceditor.search-on-map,ucf,attr}" oncommand="searchCoordinatesOnMap()"
+								image="{IconsBase}/small/arrow-up-blue.png" />
+							<xul:spacer flex="1" style="min-width: 5px;" />
+							<xul:button label="${transui:m.gmaps.bo.doceditor.capture-map,ucf,attr}" oncommand="captureMap()"
+								image="{IconsBase}/small/arrow-down-blue.png" />
+						</xul:hbox>
+						<xul:hbox align="center">
+							<xul:label>${transui:m.gmaps.bo.doceditor.latitude,ucf,lab}</xul:label>
+							<xul:textbox anonid="latitude" type="number" decimalplaces="infinity" style="width: 150px" />
+							<xul:spacer flex="1" style="min-width: 5px;" />
+							<xul:label>${transui:m.gmaps.bo.doceditor.longitude,ucf,lab}</xul:label>
+							<xul:textbox anonid="longitude" type="number" decimalplaces="infinity" style="width: 150px" />
+						</xul:hbox>
+					</xul:vbox>
+					<xul:spacer style="border: 1px solid #a5acb2; margin: 0 25px;" />
+					<xul:vbox flex="1">
+						<xul:hbox align="center">
+							<xul:spacer flex="1" />
+							<xul:button label="${transui:m.gmaps.bo.doceditor.search-address-on-map,ucf,attr}" oncommand="searchAddressOnMap()"
+								image="{IconsBase}/small/arrow-up-blue.png" />
+						</xul:hbox>
+						<xul:hbox align="top">
+							<xul:label>${transui:m.gmaps.bo.doceditor.address,ucf,lab}</xul:label>
+							<xul:textbox anonid="address" multiline="true" rows="3" flex="1"></xul:textbox>
+						</xul:hbox>
+					</xul:vbox>
+				</xul:hbox>
+				<xul:hbox style="margin-top: 20px;">
+					<xul:button image="{IconsBase}/small/check.png" oncommand="saveAndClose();" label="${transui:m.gmaps.bo.doceditor.use-these-coordinates,ucf,attr}" />
+					<xul:spacer flex="1" />
+					<xul:button image="{IconsBase}/small/delete.png" oncommand="closeDialog();" label="${transui:m.gmaps.bo.doceditor.cancel,ucf,attr}" />
+				</xul:hbox>
+			</xul:vbox>
+		</content>
+		<implementation>
+			<property name="zoom" readonly="true">
+				<getter><![CDATA[
+					var iframe = new XPCNativeWrapper(this.getElementByAnonId('googleiframe').contentWindow);
+					var zoomNode = iframe.document.getElementById('zoom');
+					return zoomNode ? zoomNode.value : 8;
+				]]></getter>
+			</property>
+			
+			<property name="latitude">
+				<getter><![CDATA[
+					var value = this.getElementByAnonId('latitude').value;
+					return value ? parseFloat(value, 10) : 0;
+				]]></getter>
+				<setter><![CDATA[
+					this.getElementByAnonId('latitude').value = val;
+				]]></setter>
+			</property>
+			
+			<property name="longitude">
+				<getter><![CDATA[
+					var value = this.getElementByAnonId('longitude').value;
+					return value ? parseFloat(value, 10) : 0;
+				]]></getter>
+				<setter><![CDATA[
+					this.getElementByAnonId('longitude').value = val;
+				]]></setter>
+			</property>
+			
+			<property name="address">
+				<getter><![CDATA[
+					return this.getElementByAnonId('address').value;
+				]]></getter>
+				<setter><![CDATA[
+					this.getElementByAnonId('address').value = val;
+				]]></setter>
+			</property>
+
+			<constructor><![CDATA[
+				wCore.debug('cPickOnMapDialog.constructor');
+			]]></constructor>
+
+			<method name="onInitialize">
+				<body><![CDATA[
+					this.autoResize(window.innerWidth-100, window.innerHeight-100);
+					if (this.parameters.latitude && this.parameters.longitude)
+					{
+						this.getElementByAnonId('latitude').value = this.parameters.latitude;
+						this.getElementByAnonId('longitude').value = this.parameters.longitude;						
+						this.getElementByAnonId('address').value = ('address' in this.parameters) ? this.parameters.address : null;
+						this.searchCoordinatesOnMap();
+					}
+					else
+					{
+						this.getElementByAnonId('address').value = ('address' in this.parameters) ? this.parameters.address : 'Paris, France';
+						this.searchAddressOnMap();
+					}
+				]]></body>
+			</method>
+
+			<method name="closeDialog">
+				<parameter name="refesh" />
+				<body><![CDATA[
+					this.controller.closeModalDialog(true);
+				]]></body>
+			</method>
+			
+			<method name="saveAndClose">
+				<parameter name="refesh" />
+				<body><![CDATA[
+					this.sender.value = JSON.stringify({
+						latitude: this.getElementByAnonId('latitude').value,
+						longitude: this.getElementByAnonId('longitude').value
+					});
+					this.closeDialog();
+				]]></body>
+			</method>
+			
+			<method name="searchAddressOnMap">
+				<body><![CDATA[
+					var url = Context.CONTROLLER + '?module=gmaps&action=GetCoordinatesIframe';
+					url += '&address='+encodeURIComponent(this.address);
+					url += '&zoom=' + (this.zoom ? this.zoom : 8);
+					this.setAttribute("googleiframesrc", url);
+				]]></body>
+			</method>
+			
+			<method name="searchCoordinatesOnMap">
+				<body><![CDATA[
+					var url = Context.CONTROLLER + '?module=gmaps&action=GetCoordinatesIframe';
+					url += '&latitude='+this.latitude+'&longitude='+this.longitude;
+					url += '&zoom=' + (this.zoom ? this.zoom : 8);
+					this.setAttribute("googleiframesrc", url);
+				]]></body>
+			</method>
+			
+			<method name="captureMap">
+				<body><![CDATA[
+					var iframe = new XPCNativeWrapper(this.getElementByAnonId('googleiframe').contentWindow);
+					this.latitude = iframe.document.getElementById('latitude').value;
+					this.longitude = iframe.document.getElementById('longitude').value;
+				]]></body>
+			</method>
+		</implementation>
+	</binding>
+</bindings>

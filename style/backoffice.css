@@ -1,0 +1,6 @@
+cfield[fieldtype="gmapscoordinates"]{
+	margin: 2px 0 2px 4px;
+}
+wdialog[template="gmaps_PickOnMap"] .dialog-header{
+	background: url(/changeicons/small/googlemaps.png) transparent center  left no-repeat!important;
+}

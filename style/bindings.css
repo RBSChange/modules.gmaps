@@ -1,0 +1,15 @@
+cfield[fieldtype="richtext"].locatableaddress{
+	-moz-binding: url(binding:modules.gmaps.cGmapsFields#cLocatableAddressRichtextField);
+}
+cfield[fieldtype="longtext"].locatableaddress{
+	-moz-binding: url(binding:modules.gmaps.cGmapsFields#cLocatableAddressLongtextField);
+}
+cfield[fieldtype="gmapscoordinates"]{
+	-moz-binding: url(binding:modules.gmaps.cGmapsFields#cGmapsCoordinatesField);
+}
+cfield[fieldtype="gmapscompactcoordinates"]{
+	-moz-binding: url(binding:modules.gmaps.cGmapsFields#cGmapsCompactCoordinatesField);
+}
+wdialog[template="gmaps_PickOnMap"]{
+	-moz-binding: url(binding:modules.gmaps.cGmapsFields#cPickOnMapDialog);
+}

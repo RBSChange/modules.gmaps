@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<title>Google Maps Coordinates Iframe</title>
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+		<script type="text/javascript">
+			function initialize()
+			{
+				if (document.getElementById('address').value)
+				{
+					var address = document.getElementById('address').value;
+					var geocoder = new google.maps.Geocoder();
+					geocoder.geocode({ address: address }, function(results, status) {
+						if (status == google.maps.GeocoderStatus.OK)
+						{
+							var location = results[0].geometry.location;
+							document.getElementById('latitude').value = location.lat();
+							document.getElementById('longitude').value = location.lng();
+							buildMap();
+						}
+						else
+						{
+							alert("${trans:m.gmaps.fo.unable-to-locate-address,ucf,js,lab} " + status);
+						}
+					});
+				}
+				else
+				{	
+					buildMap();
+				}
+			}
+			
+			function buildMap()
+			{
+				var latlng = new google.maps.LatLng(document.getElementById('latitude').value, document.getElementById('longitude').value);
+				var myOptions = { zoom: ${zoom}, center: latlng, mapTypeId: google.maps.MapTypeId.ROADMAP };
+				var map = new google.maps.Map(document.getElementById('map-canvas'), myOptions);
+				var marker = new google.maps.Marker({ map: map, position: latlng, draggable: true });
+				google.maps.event.addListener(marker, 'dragend', function () { 
+					var location = marker.getPosition();
+					document.getElementById('latitude').value = location.lat();
+					document.getElementById('longitude').value = location.lng();
+				});
+				google.maps.event.addListener(map, 'zoom_changed', function () {
+					document.getElementById('zoom').value = map.getZoom();	
+				});
+			}
+		</script>
+		<style type="text/css">
+			html, body, #map-canvas { margin: 0; padding: 0; overflow: hidden; height: 100%; }
+			#hidden-fields { display: none; }
+		</style>
+	</head>
+	<body onload="initialize()">
+		<div id="hidden-fields">
+			<input type="hidden" id="zoom" name="zoom" value="${zoom}" />
+			<input type="hidden" id="address" name="address" value="${address}" />
+			<input type="hidden" id="latitude" name="latitude" value="${latitude}" />
+			<input type="hidden" id="longitude" name="longitude" value="${longitude}" />
+		</div>
+		<div id="map-canvas"></div>
+	</body>
+</html>

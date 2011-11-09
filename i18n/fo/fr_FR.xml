@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i18n baseKey="m.gmaps.fo" lcid="fr_FR">
+	<key id="you-are-here">vous êtes ici !</key>
+	<key id="unable-to-locate-address">impossible de localiser cette adresse</key>
+</i18n>
