@@ -299,7 +299,7 @@
 		<content>
 			<children />
 			<xul:hbox xbl:inherits="context,spellcheck" flex="1">
-				<xul:vbox flex="1">
+				<xul:vbox>
 					<xul:hbox align="center">
 						<xul:label>${transui:m.gmaps.bo.doceditor.latitude,ucf,lab}</xul:label>
 						<xul:spacer flex="1" style="min-width: 5px;"/>
@@ -319,6 +319,7 @@
 						tooltiptext="${transui:m.uixul.bo.doceditor.show-help,ucf,attr}" xbl:inherits="hidden=hidehelp"
 						oncommand="dispatchFieldEvent('fieldHelp');" />
 				</xul:toolbar>
+				<xul:spacer flex="1" />
 			</xul:hbox>
 		</content>
 		<implementation>			
@@ -431,7 +432,12 @@
 
 			<method name="searchOnMap">
 				<body><![CDATA[
-					getController().openModalDialog(this, "gmaps_PickOnMap", { latitude: this.latitude, longitude: this.longitude });
+					var params = { latitude: this.latitude, longitude: this.longitude };
+					if (this.hasAttribute('data-address'))
+					{
+						params.address = this.getAttribute('data-address');
+					}
+					getController().openModalDialog(this, "gmaps_PickOnMap", params);
 				]]></body>
 			</method>
 		</implementation>

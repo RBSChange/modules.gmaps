@@ -34,6 +34,11 @@ class gmaps_ModuleService extends ModuleBaseService
 		$result = JsonService::getInstance()->decode($jsonResult);
 		if ($result['status'] != 'OK')
 		{
+			if (Framework::isInfoEnabled())
+			{
+				Framework::info(__METHOD__ . ' Address not found: ' . $address);
+				Framework::info(__METHOD__ . ' Result: ' . $jsonResult);
+			}
 			return array(null, null);
 		}
 		$location = $result['results'][0]['geometry']['location'];
