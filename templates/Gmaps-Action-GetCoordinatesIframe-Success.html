@@ -5,6 +5,7 @@
 		<title>Google Maps Coordinates Iframe</title>
 		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 		<script type="text/javascript">
+			/* <![CDATA[ */	
 			function initialize()
 			{
 				if (document.getElementById('address').value)
@@ -46,6 +47,7 @@
 					document.getElementById('zoom').value = map.getZoom();	
 				});
 			}
+			/* ]]> */
 		</script>
 		<style type="text/css">
 			html, body, #map-canvas { margin: 0; padding: 0; overflow: hidden; height: 100%; }
