@@ -57,7 +57,7 @@ class gmaps_ModuleService extends ModuleBaseService
 	public function getCountWithinRadius($model, $latField, $lonField, $refLat, $refLon, $distance)
 	{
 		$tableName = $model->getTableName();
-		$sql = $this->getPersistentProvider()->getWithinRadiusQuery($tableName, $latField, $lonField, $refLat, $refLon); 
+		$sql = $this->getWithinRadiusQuery($tableName, $latField, $lonField, $refLat, $refLon); 
 		$statement = $this->executeSQLSelect($sql);
 		$statement->execute();
 		return $statement->rowCount();
@@ -106,6 +106,7 @@ class gmaps_ModuleService extends ModuleBaseService
 	}
 	
 	/**
+	 * http://capmarketer.com/formule-gps-calcul-de-la-distance-entre-deux-points/
 	 * @param f_persistentdocument_PersistentDocumentModel $model
 	 * @param string $latField
 	 * @param string $lonField
@@ -127,8 +128,9 @@ class gmaps_ModuleService extends ModuleBaseService
 			$modelNames[$index] = "'" . $modelName . "'";
 		}
 		$inModels = '(' . implode(', ', $modelNames) . ')';
-
-		$sql = "SELECT document_id as id, ((ACOS(SIN($refLat * PI() / 180) * SIN($latField * PI() / 180) + COS($refLat * PI() / 180) * COS($latField * PI() / 180) * COS(($refLon - $lonField) * PI() / 180)) * 180 / PI()) * 60 * 1.852) AS `distance` FROM `$tableName` WHERE `document_model` in $inModels";
+		
+		$distance *= 1000;
+		$sql = "SELECT document_id as id, ACOS(SIN(RADIANS('$refLat')) * SIN(RADIANS(`$latField`)) + COS(RADIANS('$refLat')) * COS(RADIANS(`$latField`)) * COS(RADIANS('$refLon' - `$lonField`))) *6378137 AS `distance` FROM `$tableName` WHERE `$latField` IS NOT NULL AND `$lonField` IS NOT NULL AND`document_model` in $inModels";
 		$sql .= " HAVING `distance` <= $distance ORDER BY `distance` ASC";
 		if ($offset !== null && $limit !== null)
 		{
@@ -138,11 +140,19 @@ class gmaps_ModuleService extends ModuleBaseService
 	}
 	
 	/**
-	 * @param Integer $documentId
-	 * @return f_persistentdocument_PersistentTreeNode
+	 * http://capmarketer.com/formule-gps-calcul-de-la-distance-entre-deux-points/
+	 * @param float $lat1
+	 * @param float $lon1
+	 * @param float $lat2
+	 * @param float $lon2
+	 * @return float distance in meter
 	 */
-//	public function getParentNodeForPermissions($documentId)
-//	{
-//		// Define this method to handle permissions on a virtual tree node. Example available in list module.
-//	}
+	public function computeDistanceBetween($lat1, $lon1, $lat2, $lon2)
+	{
+		$lat1 = deg2rad($lat1);
+		$lon1 = deg2rad($lon1);
+		$lat2 = deg2rad($lat2);
+		$lon2 = deg2rad($lon2);
+		return intval(acos(sin($lat1)*sin($lat2)+cos($lat1)*cos($lat2)*cos($lon1-$lon2)) * 6378137);
+	}
 }
